@@ -1,109 +1,120 @@
-# 🎬 IMDb Clone — Django REST API
+Let's do it! Go to your GitHub repo → click on README.md → click the pencil icon (Edit) → delete everything and paste this:
+markdown<div align="center">
 
-A production-ready movie database REST API built with Django REST Framework, featuring JWT authentication, full CRUD for movies, ratings, reviews, and watchlists.
+# 🎬 IMDb Clone — REST API Backend
+
+*A production-ready movie database API inspired by IMDb*
+
+![Python](https://img.shields.io/badge/Python-3.12-3776AB?style=for-the-badge&logo=python&logoColor=white)
+![Django](https://img.shields.io/badge/Django-4.2-092E20?style=for-the-badge&logo=django&logoColor=white)
+![DRF](https://img.shields.io/badge/REST_Framework-3.14-ff1709?style=for-the-badge)
+![JWT](https://img.shields.io/badge/Auth-JWT-black?style=for-the-badge&logo=jsonwebtokens)
+![SQLite](https://img.shields.io/badge/Database-SQLite-003B57?style=for-the-badge&logo=sqlite)
+
+[Features](#-features) • [Quick Start](#-quick-start) • [API Endpoints](#-api-endpoints) • [Tech Stack](#-tech-stack)
+
+</div>
+
+---
+
+## 📌 About
+
+A fully featured **Movie Database REST API** built with Django REST Framework. It lets you browse movies, rate them, write reviews, manage a watchlist — all secured with JWT authentication. Think IMDb, but as a backend service any frontend can plug into.
+
+---
 
 ## ✨ Features
 
-- **JWT Authentication** — Register, login, logout (token blacklisting), refresh tokens
-- **Movie Database** — Full CRUD with genres, cast, directors, writers
-- **Smart Filtering** — Filter by year range, rating, genre, language, content rating
-- **Search** — Full-text search across titles, synopsis, cast, and directors
-- **Ratings System** — 1–10 scoring with auto-calculated averages via Django signals
-- **Reviews** — Create reviews, upvote helpful ones
-- **Watchlist** — Personal per-user watchlists
-- **API Docs** — Auto-generated Swagger UI & ReDoc via drf-spectacular
-- **Admin Panel** — Full Django admin with inline cast management
+| Feature | Description |
+|---------|-------------|
+| 🔐 **JWT Auth** | Register, login, logout with token blacklisting |
+| 🎥 **Movie Database** | Full CRUD — genres, cast, directors, writers |
+| ⭐ **Ratings** | 1–10 scoring, averages auto-calculated via Django Signals |
+| 📝 **Reviews** | Write reviews, upvote helpful ones |
+| 📋 **Watchlist** | Personal per-user movie lists |
+| 🔍 **Search & Filter** | Filter by year, genre, rating, language |
+| 📖 **API Docs** | Auto-generated Swagger UI + ReDoc |
+| 🛠️ **Admin Panel** | Full Django admin with inline cast management |
+
+---
 
 ## 🚀 Quick Start
 
 ```bash
-# 1. Clone and enter directory
-cd IMDB_api_backend_project
+git clone https://github.com/CoderParva/Imbd-api-backend.git
+cd Imbd-api-backend
 
-# 2. Create virtual environment
 python -m venv venv
-source venv/bin/activate   # Windows: venv\Scripts\activate
+source venv/bin/activate      # Windows: venv\Scripts\activate
 
-# 3. Install dependencies
 pip install -r requirements.txt
 
-# 4. Run migrations
 python manage.py migrate
-
-# 5. Seed with sample data
-python manage.py seed_db
-
-# 6. Create superuser (for admin)
+python manage.py seed_db      # loads 8 movies, 16 genres, 10 people
 python manage.py createsuperuser
-
-# 7. Start server
 python manage.py runserver
 ```
+
+> Server runs at `http://127.0.0.1:8000`
+
+---
 
 ## 📖 API Documentation
 
 | URL | Description |
 |-----|-------------|
-| `http://127.0.0.1:8000/api/docs/` | Swagger UI |
-| `http://127.0.0.1:8000/api/redoc/` | ReDoc |
-| `http://127.0.0.1:8000/admin/` | Django Admin |
+| [`/api/docs/`](http://127.0.0.1:8000/api/docs/) | ✅ Swagger UI — interactive explorer |
+| [`/api/redoc/`](http://127.0.0.1:8000/api/redoc/) | 📄 ReDoc — clean reference |
+| [`/admin/`](http://127.0.0.1:8000/admin/) | 🔧 Django Admin panel |
+
+---
 
 ## 🔗 API Endpoints
 
-### Authentication
-| Method | Endpoint | Auth | Description |
-|--------|----------|------|-------------|
-| POST | `/api/v1/auth/register/` | ❌ | Create account |
-| POST | `/api/v1/auth/login/` | ❌ | Login → get tokens |
-| POST | `/api/v1/auth/logout/` | ✅ | Blacklist refresh token |
-| POST | `/api/v1/auth/token/refresh/` | ❌ | Refresh access token |
-| GET/PUT | `/api/v1/auth/profile/` | ✅ | View / update profile |
-| PUT | `/api/v1/auth/change-password/` | ✅ | Change password |
+### 🔐 Authentication
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/api/v1/auth/register/` | Create new account |
+| `POST` | `/api/v1/auth/login/` | Login → returns JWT tokens |
+| `POST` | `/api/v1/auth/logout/` | Blacklist refresh token |
+| `POST` | `/api/v1/auth/token/refresh/` | Get new access token |
+| `GET/PUT` | `/api/v1/auth/profile/` | View / update profile |
+| `PUT` | `/api/v1/auth/change-password/` | Change password |
 
-### Movies
-| Method | Endpoint | Auth | Description |
-|--------|----------|------|-------------|
-| GET | `/api/v1/movies/` | ❌ | List movies (paginated) |
-| POST | `/api/v1/movies/` | 🔑 Admin | Create movie |
-| GET | `/api/v1/movies/<slug>/` | ❌ | Movie detail |
-| PUT/PATCH | `/api/v1/movies/<slug>/` | 🔑 Admin | Update movie |
-| DELETE | `/api/v1/movies/<slug>/` | 🔑 Admin | Delete movie |
-| GET | `/api/v1/movies/top-rated/` | ❌ | Top rated movies |
-| GET | `/api/v1/movies/featured/` | ❌ | Featured movies |
-| GET | `/api/v1/movies/<slug>/reviews/` | ❌ | Movie's reviews |
-| GET | `/api/v1/movies/<slug>/ratings/` | ❌ | Movie's rating stats |
+### 🎬 Movies
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/api/v1/movies/` | List all movies (paginated) |
+| `GET` | `/api/v1/movies/<slug>/` | Movie detail |
+| `GET` | `/api/v1/movies/top-rated/` | Top rated movies |
+| `GET` | `/api/v1/movies/featured/` | Featured movies |
+| `POST` | `/api/v1/movies/` | Create movie *(admin only)* |
+| `PUT/PATCH` | `/api/v1/movies/<slug>/` | Update movie *(admin only)* |
+| `DELETE` | `/api/v1/movies/<slug>/` | Delete movie *(admin only)* |
 
-### Ratings & Reviews
-| Method | Endpoint | Auth | Description |
-|--------|----------|------|-------------|
-| POST | `/api/v1/movies/<slug>/rate/` | ✅ | Rate a movie (1–10) |
-| DELETE | `/api/v1/movies/<slug>/rate/` | ✅ | Remove your rating |
-| GET | `/api/v1/reviews/` | ❌ | All reviews |
-| POST | `/api/v1/reviews/` | ✅ | Write a review |
-| GET/PUT/DELETE | `/api/v1/reviews/<id>/` | ✅ Owner | Review detail |
-| POST | `/api/v1/reviews/<id>/helpful/` | ✅ | Mark review helpful |
+### ⭐ Ratings & Reviews
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `POST` | `/api/v1/movies/<slug>/rate/` | Rate a movie (1–10) |
+| `DELETE` | `/api/v1/movies/<slug>/rate/` | Remove your rating |
+| `GET/POST` | `/api/v1/reviews/` | List / write reviews |
+| `PUT/DELETE` | `/api/v1/reviews/<id>/` | Edit / delete your review |
+| `POST` | `/api/v1/reviews/<id>/helpful/` | Upvote a review |
 
-### Genres & People
-| Method | Endpoint | Auth | Description |
-|--------|----------|------|-------------|
-| GET | `/api/v1/genres/` | ❌ | List genres |
-| POST | `/api/v1/genres/` | 🔑 Admin | Create genre |
-| GET | `/api/v1/genres/<slug>/` | ❌ | Genre detail |
-| GET | `/api/v1/people/` | ❌ | List people |
-| POST | `/api/v1/people/` | 🔑 Admin | Create person |
-| GET | `/api/v1/people/<id>/` | ❌ | Person detail |
+### 📋 Watchlist & More
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET/POST` | `/api/v1/watchlist/` | View / add to watchlist |
+| `DELETE` | `/api/v1/watchlist/<id>/` | Remove from watchlist |
+| `GET` | `/api/v1/genres/` | List all genres |
+| `GET` | `/api/v1/people/` | List all people |
 
-### Watchlist
-| Method | Endpoint | Auth | Description |
-|--------|----------|------|-------------|
-| GET | `/api/v1/watchlist/` | ✅ | Your watchlist |
-| POST | `/api/v1/watchlist/` | ✅ | Add to watchlist |
-| DELETE | `/api/v1/watchlist/<id>/` | ✅ | Remove from watchlist |
+---
 
 ## 🔍 Filtering & Search
 
-```
-# Filter by genre slug
+```bash
+# Filter by genre
 GET /api/v1/movies/?genre=action
 
 # Filter by year range
@@ -112,62 +123,64 @@ GET /api/v1/movies/?release_year_min=2000&release_year_max=2020
 # Filter by minimum rating
 GET /api/v1/movies/?rating_min=8.0
 
-# Filter featured movies
-GET /api/v1/movies/?is_featured=true
-
 # Full-text search
 GET /api/v1/movies/?search=nolan
 
-# Sort results
+# Sort by rating
 GET /api/v1/movies/?ordering=-avg_rating
 
 # Combine filters
 GET /api/v1/movies/?genre=sci-fi&release_year_min=2010&ordering=-avg_rating
 ```
 
-## 🔐 Authentication Usage
+---
 
-```bash
-# 1. Register
-curl -X POST http://localhost:8000/api/v1/auth/register/ \
-  -H "Content-Type: application/json" \
-  -d '{"username":"john","email":"john@example.com","password":"pass123!","password2":"pass123!"}'
+## 🏗️ Tech Stack
 
-# 2. Login
-curl -X POST http://localhost:8000/api/v1/auth/login/ \
-  -H "Content-Type: application/json" \
-  -d '{"email":"john@example.com","password":"pass123!"}'
+| Layer | Technology |
+|-------|-----------|
+| Language | Python 3.12 |
+| Framework | Django 4.2 |
+| API Layer | Django REST Framework 3.14 |
+| Authentication | SimpleJWT + Token Blacklist |
+| Filtering | django-filter |
+| API Docs | drf-spectacular (Swagger / ReDoc) |
+| Database | SQLite (dev) → PostgreSQL (prod) |
+| Image Handling | Pillow |
 
-# 3. Use token
-curl http://localhost:8000/api/v1/watchlist/ \
-  -H "Authorization: Bearer <access_token>"
+---
+
+## 🗄️ Database Models
+
+```
+CustomUser    →  Email-based auth, bio, avatar
+Movie         →  Title, synopsis, poster, trailer, budget, revenue
+Genre         →  Slug-based categorization
+Person        →  Actors, directors, writers
+CastMember    →  Through model with character names + order
+Rating        →  1–10 score per user per movie
+Review        →  Full text + helpful votes
+Watchlist     →  Per-user movie lists
 ```
 
-## 🏗️ Project Structure
+---
+
+## 🔐 Authentication Flow
 
 ```
-IMDB_api_backend_project/
-├── config/
-│   ├── settings.py          # Django settings
-│   ├── urls.py              # Root URL config
-│   └── wsgi.py
-├── accounts/                # Auth app
-│   ├── models.py            # CustomUser model
-│   ├── serializers.py       # Auth serializers
-│   ├── views.py             # Auth views
-│   └── urls.py
-├── movies/                  # Core app
-│   ├── models.py            # Movie, Genre, Person, Rating, Review, Watchlist
-│   ├── serializers.py       # All serializers
-│   ├── views.py             # All views + ViewSets
-│   ├── filters.py           # MovieFilter
-│   ├── permissions.py       # Custom permissions
-│   ├── signals.py           # Auto-update avg_rating
-│   ├── admin.py             # Admin configuration
-│   └── management/
-│       └── commands/
-│           └── seed_db.py   # Sample data seeder
-├── requirements.txt
-├── .env.example
-└── README.md
+POST /auth/register/  →  Create account
+POST /auth/login/     →  Get access token (60 min) + refresh token (7 days)
+                         Add to requests: Authorization: Bearer <access_token>
+POST /auth/logout/    →  Refresh token blacklisted, can never be reused
+POST /token/refresh/  →  Get new access token using refresh token
 ```
+
+---
+
+<div align="center">
+
+Made with ❤️ by [CoderParva](https://github.com/CoderParva)
+
+⭐ Star this repo if you found it useful!
+
+</div>
