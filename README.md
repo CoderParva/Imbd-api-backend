@@ -17,13 +17,13 @@ markdown<div align="center">
 
 ---
 
-## 📌 About
+##  About
 
 A fully featured **Movie Database REST API** built with Django REST Framework. It lets you browse movies, rate them, write reviews, manage a watchlist — all secured with JWT authentication. Think IMDb, but as a backend service any frontend can plug into.
 
 ---
 
-## ✨ Features
+##  Features
 
 | Feature | Description |
 |---------|-------------|
