@@ -27,14 +27,14 @@ A fully featured **Movie Database REST API** built with Django REST Framework. I
 
 | Feature | Description |
 |---------|-------------|
-| 🔐 **JWT Auth** | Register, login, logout with token blacklisting |
-| 🎥 **Movie Database** | Full CRUD — genres, cast, directors, writers |
-| ⭐ **Ratings** | 1–10 scoring, averages auto-calculated via Django Signals |
-| 📝 **Reviews** | Write reviews, upvote helpful ones |
-| 📋 **Watchlist** | Personal per-user movie lists |
-| 🔍 **Search & Filter** | Filter by year, genre, rating, language |
-| 📖 **API Docs** | Auto-generated Swagger UI + ReDoc |
-| 🛠️ **Admin Panel** | Full Django admin with inline cast management |
+|  **JWT Auth** | Register, login, logout with token blacklisting |
+|  **Movie Database** | Full CRUD — genres, cast, directors, writers |
+|  **Ratings** | 1–10 scoring, averages auto-calculated via Django Signals |
+|  **Reviews** | Write reviews, upvote helpful ones |
+|  **Watchlist** | Personal per-user movie lists |
+|  **Search & Filter** | Filter by year, genre, rating, language |
+|  **API Docs** | Auto-generated Swagger UI + ReDoc |
+|  **Admin Panel** | Full Django admin with inline cast management |
 
 ---
 
@@ -59,7 +59,7 @@ python manage.py runserver
 
 ---
 
-## 📖 API Documentation
+##  API Documentation
 
 | URL | Description |
 |-----|-------------|
@@ -69,9 +69,9 @@ python manage.py runserver
 
 ---
 
-## 🔗 API Endpoints
+##  API Endpoints
 
-### 🔐 Authentication
+###  Authentication
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | `POST` | `/api/v1/auth/register/` | Create new account |
@@ -81,7 +81,7 @@ python manage.py runserver
 | `GET/PUT` | `/api/v1/auth/profile/` | View / update profile |
 | `PUT` | `/api/v1/auth/change-password/` | Change password |
 
-### 🎬 Movies
+###  Movies
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | `GET` | `/api/v1/movies/` | List all movies (paginated) |
@@ -92,7 +92,7 @@ python manage.py runserver
 | `PUT/PATCH` | `/api/v1/movies/<slug>/` | Update movie *(admin only)* |
 | `DELETE` | `/api/v1/movies/<slug>/` | Delete movie *(admin only)* |
 
-### ⭐ Ratings & Reviews
+###  Ratings & Reviews
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | `POST` | `/api/v1/movies/<slug>/rate/` | Rate a movie (1–10) |
@@ -101,7 +101,7 @@ python manage.py runserver
 | `PUT/DELETE` | `/api/v1/reviews/<id>/` | Edit / delete your review |
 | `POST` | `/api/v1/reviews/<id>/helpful/` | Upvote a review |
 
-### 📋 Watchlist & More
+###  Watchlist & More
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | `GET/POST` | `/api/v1/watchlist/` | View / add to watchlist |
@@ -111,7 +111,7 @@ python manage.py runserver
 
 ---
 
-## 🔍 Filtering & Search
+##  Filtering & Search
 
 ```bash
 # Filter by genre
@@ -135,7 +135,7 @@ GET /api/v1/movies/?genre=sci-fi&release_year_min=2010&ordering=-avg_rating
 
 ---
 
-## 🏗️ Tech Stack
+##  Tech Stack
 
 | Layer | Technology |
 |-------|-----------|
@@ -150,7 +150,7 @@ GET /api/v1/movies/?genre=sci-fi&release_year_min=2010&ordering=-avg_rating
 
 ---
 
-## 🗄️ Database Models
+##  Database Models
 
 ```
 CustomUser    →  Email-based auth, bio, avatar
@@ -165,7 +165,7 @@ Watchlist     →  Per-user movie lists
 
 ---
 
-## 🔐 Authentication Flow
+##  Authentication Flow
 
 ```
 POST /auth/register/  →  Create account
@@ -181,6 +181,6 @@ POST /token/refresh/  →  Get new access token using refresh token
 
 Made with ❤️ by [CoderParva](https://github.com/CoderParva)
 
-⭐ Star this repo if you found it useful!
+ Star this repo if you found it useful!
 
 </div>
